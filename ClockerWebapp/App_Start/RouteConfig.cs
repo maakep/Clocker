@@ -11,6 +11,7 @@ namespace ClockerWebapp
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            //routing?
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(

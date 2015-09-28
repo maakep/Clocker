@@ -7,6 +7,7 @@ namespace ClockerWebapp
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            //idk
             filters.Add(new HandleErrorAttribute());
         }
     }
