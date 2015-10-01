@@ -7,6 +7,7 @@ A learning experiment
 
 #Features
 Är typ en pie-chart som uppdateras i realtid vore neat
+inloggning, sparning, connecta flera personer till samma session
 
 #Teknisk lösning
 Använder .NET MVC (C# + php-liknande front-end)
