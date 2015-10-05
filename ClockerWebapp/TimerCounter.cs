@@ -13,6 +13,7 @@ namespace SinalRtest3
         private static int _connected=0; //To be changed to some database, sql/firebase
         private static long _time = 0;
         private static bool pressed = false;
+        private static double test = 0;
         public TimerCounter()
         {
             //Connected();
@@ -21,18 +22,18 @@ namespace SinalRtest3
         //Called after a connection is established.
         public void Connected()
         {
-            _connected++;
-            Clients.All.updateConnected(_connected);
-            Clients.All.time(_time);
+            //_connected++;
+            Clients.All.updateConnected(++_connected);
+            Clients.All.time(test);
         }
 
-        //ONDISCONNECT doesn't work atm, but should update the value in the future.
-        //public override System.Threading.Tasks.Task OnDisconnected()
-        //{
+        
+        public override System.Threading.Tasks.Task OnDisconnected(bool stopCalled)
+        {
 
-        //    this.Clients.All.updateConnected(--_connected);
-        //    return base.OnDisconnected()
-        //}
+            this.Clients.All.updateConnected(--_connected);
+            return base.OnDisconnected(stopCalled);
+        }
 
         //Add timer stuff here later
         public void Time()
@@ -50,7 +51,7 @@ namespace SinalRtest3
                 long deltaTime = time.Ticks - _time;
                 pressed = false;
                 deltaTime = deltaTime/10000;
-                double test = deltaTime/1000.0;
+                test = deltaTime/1000.0;
                 Clients.All.time("stopped: " + test);
             }
             
