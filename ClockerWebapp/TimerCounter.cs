@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 
@@ -10,7 +11,8 @@ namespace SinalRtest3
     {
 
         private static int _connected=0; //To be changed to some database, sql/firebase
-        private static int _time = 0;
+        private static long _time = 0;
+        private static bool pressed = false;
         public TimerCounter()
         {
             //Connected();
@@ -21,6 +23,7 @@ namespace SinalRtest3
         {
             _connected++;
             Clients.All.updateConnected(_connected);
+            Clients.All.time(_time);
         }
 
         //ONDISCONNECT doesn't work atm, but should update the value in the future.
@@ -34,8 +37,25 @@ namespace SinalRtest3
         //Add timer stuff here later
         public void Time()
         {
-            _time++;
-            Clients.All.time(_time);
+            DateTime time = DateTime.Now;
+           
+            if (!pressed)
+            {
+
+                _time = time.Ticks;
+                pressed = true;
+                Clients.All.time("started: " + 0);
+            }
+            else{
+                long deltaTime = time.Ticks - _time;
+                pressed = false;
+                deltaTime = deltaTime/10000;
+                double test = deltaTime/1000.0;
+                Clients.All.time("stopped: " + test);
+            }
+            
+            
+
         }
     }
 }
